@@ -62,6 +62,7 @@ public:
   static const AlgorithmInputName LHS;
   static const AlgorithmInputName RHS;
   static const AlgorithmInputName MatrixToWrite;
+  static const AlgorithmInputName BundleToWrite;
   static const AlgorithmInputName InputField;
   static const AlgorithmInputName ObjectField;
   static const AlgorithmInputName ListOfInputFields;

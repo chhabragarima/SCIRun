@@ -31,6 +31,7 @@ SET(Algorithms_DataIO_SRCS
   WriteMatrix.cc
   EigenMatrixFromScirunAsciiFormatConverter.cc
   TextToTriSurfField.cc
+  WriteBundle.cc
 )
 
 SET(Algorithms_DataIO_HEADERS
@@ -38,6 +39,7 @@ SET(Algorithms_DataIO_HEADERS
   WriteMatrix.h
   EigenMatrixFromScirunAsciiFormatConverter.h
   TextToTriSurfField.h
+  WriteBundle.h
 )
 
 SCIRUN_ADD_LIBRARY(Algorithms_DataIO 
@@ -58,4 +60,3 @@ IF(BUILD_SHARED_LIBS)
 ENDIF(BUILD_SHARED_LIBS)
 
 SCIRUN_ADD_TEST_DIR(Tests)
-

@@ -25,20 +25,20 @@
    DEALINGS IN THE SOFTWARE.
 */
 
-#include <Interface/Modules/DataIO/WriteFieldDialog.h>
-#include <Modules/DataIO/WriteField.h>
+#include <Interface/Modules/DataIO/WriteBundleDialog.h>
 #include <Core/Algorithms/Base/AlgorithmVariableNames.h>
-#include <Dataflow/Network/ModuleStateInterface.h>  //TODO: extract into intermediate
 #include <Core/ImportExport/GenericIEPlugin.h>
+#include <Dataflow/Network/ModuleStateInterface.h>  //TODO: extract into intermediate
 #include <iostream>
 #include <QFileDialog>
+//#include <Modules/DataIO/WriteBundle.h>
 
 using namespace SCIRun::Gui;
-using namespace SCIRun::Modules::DataIO;
-using namespace SCIRun::Dataflow::Networks;
 using namespace SCIRun::Core::Algorithms;
+using namespace SCIRun::Dataflow::Networks;
+//using namespace SCIRun::Modules::DataIO;
 
-WriteFieldDialog::WriteFieldDialog(const std::string& name, ModuleStateHandle state,
+WriteBundleDialog::WriteBundleDialog(const std::string& name, ModuleStateHandle state,
   QWidget* parent /* = 0 */)
   : ModuleDialogGeneric(state, parent)
 {
@@ -54,20 +54,20 @@ WriteFieldDialog::WriteFieldDialog(const std::string& name, ModuleStateHandle st
   WidgetStyleMixin::setStateVarTooltipWithStyle(saveFileButton_, Variables::FileTypeName.name());
 }
 
-void WriteFieldDialog::pullSpecial()
+void WriteBundleDialog::pullSpecial()
 {
   pullFilename(state_, fileNameLineEdit_, {});
 }
 
-void WriteFieldDialog::pushFileNameToState()
+void WriteBundleDialog::pushFileNameToState()
 {
   state_->setValue(Variables::Filename, fileNameLineEdit_->text().trimmed().toStdString());
 }
 
-void WriteFieldDialog::saveFile()
+void WriteBundleDialog::saveFile()
 {
   auto types = state_->getValue(Variables::FileTypeList).toString();
-  auto file = QFileDialog::getSaveFileName(this, "Save Field File", dialogDirectory(), QString::fromStdString(types), &selectedFilter_);
+  auto file = QFileDialog::getSaveFileName(this, "Save Bundle File", dialogDirectory(), QString::fromStdString(types), &selectedFilter_);
   if (file.length() > 0)
   {
     auto typeName = SCIRun::fileTypeDescriptionFromDialogBoxFilter(selectedFilter_.toStdString());

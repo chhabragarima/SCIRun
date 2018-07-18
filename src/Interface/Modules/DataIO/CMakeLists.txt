@@ -35,6 +35,7 @@ SET(Interface_Modules_DataIO_FORMS
   WriteFieldDialog.ui
   WriteG3DDialog.ui
   WriteMatrix.ui
+  WriteBundleDialog.ui
 )
 
 SET(Interface_Modules_DataIO_HEADERS
@@ -46,6 +47,7 @@ SET(Interface_Modules_DataIO_HEADERS
   WriteG3DDialog.h
   WriteMatrixDialog.h
   share.h
+  WriteBundleDialog.h
 )
 
 SET(Interface_Modules_DataIO_SOURCES
@@ -56,6 +58,7 @@ SET(Interface_Modules_DataIO_SOURCES
   WriteFieldDialog.cc
   WriteG3DDialog.cc
   WriteMatrixDialog.cc
+  WriteBundleDialog.cc
 )
 
 QT_WRAP_UI(Interface_Modules_DataIO_FORMS_HEADERS "${Interface_Modules_DataIO_FORMS}")

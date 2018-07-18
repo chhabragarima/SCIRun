@@ -26,54 +26,32 @@
    DEALINGS IN THE SOFTWARE.
 */
 
-#include <Core/Algorithms/Base/AlgorithmVariableNames.h>
+#ifndef ALGORITHMS_DATAIO_WRITEBUNDLE_H
+#define ALGORITHMS_DATAIO_WRITEBUNDLE_H
 
-using namespace SCIRun::Core::Algorithms;
+#include <string>
+#include <Core/Algorithms/Base/AlgorithmBase.h>
+//#include <Core/Datatypes/MatrixFwd.h>
+#include <Core/Algorithms/DataIO/share.h>
 
-#define PARAMETER(name) const AlgorithmParameterName Variables::name(#name);
-#define INPUT(name) const AlgorithmInputName Variables::name(#name);
-#define OUTPUT(name) const AlgorithmOutputName Variables::name(#name);
+namespace SCIRun {
+  namespace Core {
+    namespace Algorithms {
+      namespace DataIO {
 
-PARAMETER(RowsOrColumns)
-PARAMETER(Operator)
-PARAMETER(ScalarValue)
-PARAMETER(TargetError)
-PARAMETER(MaxIterations)
-PARAMETER(Method)
-PARAMETER(Preconditioner)
-PARAMETER(Filename)
-PARAMETER(BuildConvergence)
-PARAMETER(FileTypeList)
-PARAMETER(FileExtension)
-PARAMETER(FileTypeName)
-PARAMETER(FormatString)
-PARAMETER(FunctionString)
-PARAMETER(ObjectInfo)
-PARAMETER(ScriptEnvironmentVariable)
+      class SCISHARE WriteBundleAlgorithm : public AlgorithmBase
+      {
+      public:
+        typedef SCIRun::Core::Datatypes::MatrixHandle Inputs;
+        typedef std::string Parameters; 
+        typedef void Outputs;
 
-INPUT(InputMatrix)
-INPUT(FirstMatrix)
-INPUT(SecondMatrix)
-INPUT(LHS)
-INPUT(RHS)
-INPUT(MatrixToWrite)
-INPUT(BundleToWrite)
-INPUT(InputField)
-INPUT(ObjectField)
-INPUT(ListOfInputFields)
-INPUT(InputFields)
-INPUT(Source)
-INPUT(Destination)
-INPUT(InputNrrd)
-INPUT(InputComplexMatrix)
+        WriteBundleAlgorithm();
+        Outputs run(const Inputs& input, const Parameters& filename) const;
 
-OUTPUT(MatrixInfo)
-OUTPUT(Result)
-OUTPUT(ResultMatrix)
-OUTPUT(MatrixLoaded)
-OUTPUT(Solution)
-OUTPUT(OutputField)
-OUTPUT(OutputMatrix)
-OUTPUT(OutputComplexMatrix)
-OUTPUT(OutputNrrd)
-OUTPUT(ListOfOutputFields)
+        AlgorithmOutput run(const AlgorithmInput& input) const override;
+      };
+}}}}
+
+
+#endif

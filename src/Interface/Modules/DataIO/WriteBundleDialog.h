@@ -26,54 +26,35 @@
    DEALINGS IN THE SOFTWARE.
 */
 
-#include <Core/Algorithms/Base/AlgorithmVariableNames.h>
+#ifndef INTERFACE_MODULES_WRITE_BUNDLE_H
+#define INTERFACE_MODULES_WRITE_BUNDLE_H
 
-using namespace SCIRun::Core::Algorithms;
+#include "Interface/Modules/DataIO/ui_WriteBundleDialog.h"
+#include <Interface/Modules/Base/ModuleDialogGeneric.h>
+#include <Interface/Modules/Base/RemembersFileDialogDirectory.h>
+#include <Interface/Modules/DataIO/share.h>
 
-#define PARAMETER(name) const AlgorithmParameterName Variables::name(#name);
-#define INPUT(name) const AlgorithmInputName Variables::name(#name);
-#define OUTPUT(name) const AlgorithmOutputName Variables::name(#name);
+namespace SCIRun {
+namespace Gui {
 
-PARAMETER(RowsOrColumns)
-PARAMETER(Operator)
-PARAMETER(ScalarValue)
-PARAMETER(TargetError)
-PARAMETER(MaxIterations)
-PARAMETER(Method)
-PARAMETER(Preconditioner)
-PARAMETER(Filename)
-PARAMETER(BuildConvergence)
-PARAMETER(FileTypeList)
-PARAMETER(FileExtension)
-PARAMETER(FileTypeName)
-PARAMETER(FormatString)
-PARAMETER(FunctionString)
-PARAMETER(ObjectInfo)
-PARAMETER(ScriptEnvironmentVariable)
+class SCISHARE WriteBundleDialog : public ModuleDialogGeneric,
+  public Ui::WriteBundleDialog, public RemembersFileDialogDirectory
+{
+	Q_OBJECT
 
-INPUT(InputMatrix)
-INPUT(FirstMatrix)
-INPUT(SecondMatrix)
-INPUT(LHS)
-INPUT(RHS)
-INPUT(MatrixToWrite)
-INPUT(BundleToWrite)
-INPUT(InputField)
-INPUT(ObjectField)
-INPUT(ListOfInputFields)
-INPUT(InputFields)
-INPUT(Source)
-INPUT(Destination)
-INPUT(InputNrrd)
-INPUT(InputComplexMatrix)
+public:
+  WriteBundleDialog(const std::string& name,
+    SCIRun::Dataflow::Networks::ModuleStateHandle state,
+    QWidget* parent = nullptr);
+protected:
+  virtual void pullSpecial() override;
 
-OUTPUT(MatrixInfo)
-OUTPUT(Result)
-OUTPUT(ResultMatrix)
-OUTPUT(MatrixLoaded)
-OUTPUT(Solution)
-OUTPUT(OutputField)
-OUTPUT(OutputMatrix)
-OUTPUT(OutputComplexMatrix)
-OUTPUT(OutputNrrd)
-OUTPUT(ListOfOutputFields)
+private Q_SLOTS:
+  void pushFileNameToState();
+  void saveFile();
+};
+
+}
+}
+
+#endif

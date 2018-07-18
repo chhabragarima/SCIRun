@@ -25,55 +25,36 @@
    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
    DEALINGS IN THE SOFTWARE.
 */
+/// @todo Documentation Modules/DataIO/WriteMatrix.h
 
-#include <Core/Algorithms/Base/AlgorithmVariableNames.h>
+#ifndef MODULES_DATAIO_WRITE_BUNDLE_H
+#define MODULES_DATAIO_WRITE_BUNDLE_H
 
-using namespace SCIRun::Core::Algorithms;
+#include <Modules/DataIO/GenericWriter.h>
+#include <Core/Datatypes/DatatypeFwd.h>
+#include <Modules/DataIO/share.h>
 
-#define PARAMETER(name) const AlgorithmParameterName Variables::name(#name);
-#define INPUT(name) const AlgorithmInputName Variables::name(#name);
-#define OUTPUT(name) const AlgorithmOutputName Variables::name(#name);
+namespace SCIRun {
+  namespace Modules {
+    namespace DataIO {
 
-PARAMETER(RowsOrColumns)
-PARAMETER(Operator)
-PARAMETER(ScalarValue)
-PARAMETER(TargetError)
-PARAMETER(MaxIterations)
-PARAMETER(Method)
-PARAMETER(Preconditioner)
-PARAMETER(Filename)
-PARAMETER(BuildConvergence)
-PARAMETER(FileTypeList)
-PARAMETER(FileExtension)
-PARAMETER(FileTypeName)
-PARAMETER(FormatString)
-PARAMETER(FunctionString)
-PARAMETER(ObjectInfo)
-PARAMETER(ScriptEnvironmentVariable)
+      class SCISHARE WriteBundle : public GenericWriter<Core::Datatypes::BundleHandle, BundlePortTag>
+      {
+      public:
+        typedef GenericWriter<Core::Datatypes::BundleHandle, BundlePortTag> my_base;
+        WriteBundle();
+        virtual void execute() override;
+        virtual bool useCustomExporter(const std::string& filename) const override;
+        virtual bool call_exporter(const std::string& filename) override;
 
-INPUT(InputMatrix)
-INPUT(FirstMatrix)
-INPUT(SecondMatrix)
-INPUT(LHS)
-INPUT(RHS)
-INPUT(MatrixToWrite)
-INPUT(BundleToWrite)
-INPUT(InputField)
-INPUT(ObjectField)
-INPUT(ListOfInputFields)
-INPUT(InputFields)
-INPUT(Source)
-INPUT(Destination)
-INPUT(InputNrrd)
-INPUT(InputComplexMatrix)
+        INPUT_PORT(0, BundleToWrite, Bundle);
 
-OUTPUT(MatrixInfo)
-OUTPUT(Result)
-OUTPUT(ResultMatrix)
-OUTPUT(MatrixLoaded)
-OUTPUT(Solution)
-OUTPUT(OutputField)
-OUTPUT(OutputMatrix)
-OUTPUT(OutputComplexMatrix)
-OUTPUT(OutputNrrd)
-OUTPUT(ListOfOutputFields)
+        MODULE_TRAITS_AND_INFO(ModuleHasUIAndAlgorithm)
+
+      protected:
+        virtual std::string defaultFileTypeName() const override;
+      };
+
+    }}}
+
+#endif
